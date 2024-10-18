@@ -1,0 +1,21 @@
+.forecast-card {
+  transform: scale(0.9);
+  width: 13rem;
+}
+
+.forecast-card:hover {
+  transform: scale(1.2);
+  box-shadow: 0 10px 0 #5a287d;
+}
+
+.forecast-info {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+}
