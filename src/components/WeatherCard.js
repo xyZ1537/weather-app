@@ -3,7 +3,6 @@ import { formatTimestamp } from '../utils.js';
 import temperatureIcon from '../images/temperature.png';
 import humidityIcon from '../images/humidity.png';
 import windIcon from '../images/wind.png';
-import { ICON_BASE_URL } from '../url.js';
 import "./WeatherCard.css";
 
 const WeatherCard = ({ currentData, forecastData }) => {
@@ -20,7 +19,7 @@ const WeatherCard = ({ currentData, forecastData }) => {
       <p className="date">{date}</p>
 
       <div className="basic-info">
-        <img className="weather-icon" src={`${ICON_BASE_URL}/${iconSrc}`} alt="weather type"/>
+        <img className="weather-icon" src={`https://openweathermap.org/img/wn/${iconSrc}`} alt="weather type"/>
         <p className="current-temp">{currentTemp}°C</p>
       </div>
 

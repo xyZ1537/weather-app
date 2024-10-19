@@ -1,30 +1,32 @@
 import React, { useState } from 'react'; 
-import axios from 'axios';
 import weather from './images/weather.gif';
 import WeatherCard from './components/WeatherCard.js';
 import WeatherCardSimplified from './components/WeatherCardSimplified.js';
 import SearchBar from './components/SearchBar.js';
-import { WEATHER_BASE_URL } from './url.js';
+import { fetchCurrentWeather, fetchForecastWeather } from './weatherAPI.js';
 import './App.css';
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastWeather, setForecastWeather] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSearch = async (location) => {
+  const handleSearch = async (city) => {
+    setError('');
+    setLocation(city);
+    setCurrentWeather(null);
+    setForecastWeather(null);
+
     try {
-      const weatherResponseCurrent = await axios.get(`${WEATHER_BASE_URL}/weather?q=${location}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`);
-      const weatherCurrent = weatherResponseCurrent.data;
-      setCurrentWeather(weatherCurrent);
-      setLocation(weatherCurrent.name);
-      const weatherResponseForecast = await axios.get(`${WEATHER_BASE_URL}/forecast/daily?q=${location}&cnt=6&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`);
-      const weatherForecast = weatherResponseForecast.data.list;
-      setForecastWeather(weatherForecast);
-    } catch (error) {
-      console.error(error);
+      const currentData = await fetchCurrentWeather(city);
+      const forecastData = await fetchForecastWeather(city);
+      setCurrentWeather(currentData);
+      setForecastWeather(forecastData.list);
+    } catch (err) {
+      setError(err.message);
     }
-  }
+  };
 
   return (
     <div className="App">
@@ -41,18 +43,21 @@ function App() {
 
       <div className='content-container'>
         <div className='current-location'>
-          {location && <h2>Location: {location}</h2>}
+          {location && !error && <h2>Location: {location}</h2>}
+          {error && <h3>{error}</h3>}
         </div>
-        <div className='weather-container'>
-          {currentWeather  && forecastWeather && <WeatherCard currentData={currentWeather} forecastData={forecastWeather[0]}/>}
 
-          <div className='weather-card-list'>
-            {forecastWeather && 
-              forecastWeather
+        {!error && currentWeather && forecastWeather &&
+          <div className='weather-container'>
+            <WeatherCard currentData={currentWeather} forecastData={forecastWeather[0]} />
+          
+            <div className='weather-card-list'>
+              {forecastWeather
                 .slice(1)
                 .map((data, index) => <WeatherCardSimplified key={index} data={data} />)}
+            </div>
           </div>
-        </div>
+        }
       </div>
 
       <footer id="footer">
