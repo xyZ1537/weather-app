@@ -16,7 +16,7 @@
   color: black;
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }
 
@@ -26,7 +26,7 @@
 
 .search-bar-container {
   width: 100%;
-  background: #5a287d;
+  background: #b9c2e5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,8 +78,8 @@
 #footer {
   width: 100%;
   min-height: 50px;
-  background-color: #5a287d;
-  color: white;
+  background-color: #b9c2e5;
+  color: #636363;
 
   p {
     font-size: 1rem;
@@ -88,8 +88,7 @@
   
   a {
   font-weight: bold;
-  color: white;
+  color: #636363;
   text-decoration: underline;
-  text-decoration-color: white;
   }
 }

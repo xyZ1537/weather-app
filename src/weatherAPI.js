@@ -15,8 +15,6 @@ const fetchHandler = async (endpoint, options = {}) => {
         errorMessage = 'No data found. Please enter a valid city name.';
       } else if (response.status === 500) {
         errorMessage = 'Server error. Please try again later.';
-      } else if (response.status === 400) {
-        errorMessage = 'Please enter a valid city name.';
       } else {
         errorMessage = `Error: ${response.status} ${response.statusText}`;
       }

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'; 
 import weather from './images/weather.gif';
-import WeatherCard from './components/WeatherCard.js';
-import WeatherCardSimplified from './components/WeatherCardSimplified.js';
-import SkeletonCard from './components/SkeletonCard.js';
-import SearchBar from './components/SearchBar.js';
+import WeatherCard from './components/WeatherCard';
+import WeatherCardSimplified from './components/WeatherCardSimplified';
+import SkeletonCard from './components/SkeletonCard';
+import SearchBar from './components/SearchBar';
 import { fetchCurrentWeather, fetchForecastWeather } from './weatherAPI.js';
 import { useQueries } from "@tanstack/react-query";
 import './App.css';
@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <img src={weather} className="sun-animation" alt="cartoon animation of a sun" />
+        <img src={weather} className="sun-animation" alt="weather cartoon animation" />
         <h1>
           HBO Weather Channel
         </h1>

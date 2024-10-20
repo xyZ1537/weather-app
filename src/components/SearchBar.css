@@ -1,5 +1,5 @@
 .search-bar {
-  margin: 1rem;
+  margin: 2rem auto 0;
   background-color: white;
   display: flex;
   flex-direction: row;
@@ -8,15 +8,19 @@
   border-radius: 10px;
 }
 
+.search-bar-error {
+  border: 2px solid red;
+}
+
 .search-bar input {
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 1rem;
   border: none;
   border-radius: 10px;
 }
 
 .search-bar button {
-  padding: 1.25rem;
+  padding: 1rem;
   cursor: pointer;
   border: none;
   border-radius: 10px;
@@ -27,20 +31,10 @@
 }
 
 .search-icon {
-  height: 1.5rem;
+  height: 1.2rem;
 }
 
-@media only screen and (max-width: 600px) {
-  .search-bar input {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-
-  .search-bar button {
-    padding: 0.5rem;
-  }
-
-  .search-icon {
-    height: 1rem;
-  }
+.error-message {
+  height: 2rem;
+  color: red;
 }
