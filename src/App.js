@@ -2,31 +2,39 @@ import React, { useState } from 'react';
 import weather from './images/weather.gif';
 import WeatherCard from './components/WeatherCard.js';
 import WeatherCardSimplified from './components/WeatherCardSimplified.js';
+import SkeletonCard from './components/SkeletonCard.js';
 import SearchBar from './components/SearchBar.js';
 import { fetchCurrentWeather, fetchForecastWeather } from './weatherAPI.js';
+import { useQueries } from "@tanstack/react-query";
 import './App.css';
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const [forecastWeather, setForecastWeather] = useState(null);
-  const [location, setLocation] = useState("");
-  const [error, setError] = useState("");
+  const [location, setLocation] = useState("London");
 
   const handleSearch = async (city) => {
-    setError('');
     setLocation(city);
-    setCurrentWeather(null);
-    setForecastWeather(null);
-
-    try {
-      const currentData = await fetchCurrentWeather(city);
-      const forecastData = await fetchForecastWeather(city);
-      setCurrentWeather(currentData);
-      setForecastWeather(forecastData.list);
-    } catch (err) {
-      setError(err.message);
-    }
   };
+
+  const [{ data: currentWeather, isLoading: isLoadingCurrent, error: errorCurrent },
+    { data: forecastWeather, isLoading: isLoadingForecast, error: errorForecast }] = useQueries({
+      queries: [
+        {
+          queryKey: ["currentWeather", location],
+          queryFn: () => fetchCurrentWeather(location),
+          staleTime: 5 * 60000,
+          cacheTime: 10 * 60000,
+        },
+        {
+          queryKey: ["forecastWeather", location],
+          queryFn: () => fetchForecastWeather(location),
+          staleTime: 30 * 60000,
+          cacheTime: 60 * 60000,
+        }
+        ]
+    })
+  
+  const error = errorCurrent?.message || errorForecast?.message;
+  const isLoading = isLoadingCurrent || isLoadingForecast;
 
   return (
     <div className="App">
@@ -42,22 +50,25 @@ function App() {
       </div>
 
       <div className='content-container'>
-        <div className='current-location'>
-          {location && !error && <h2>Location: {location}</h2>}
-          {error && <h3>{error}</h3>}
+        <div className='current-location'> 
+          {error ? <h2>{error}</h2> : <h2>Location: {location}</h2>}
         </div>
 
-        {!error && currentWeather && forecastWeather &&
+        {!error && (
           <div className='weather-container'>
-            <WeatherCard currentData={currentWeather} forecastData={forecastWeather[0]} />
-          
+            { isLoading ? <SkeletonCard /> : 
+              <WeatherCard currentData={currentWeather} forecastData={forecastWeather.list[0]} />
+            }
+
             <div className='weather-card-list'>
-              {forecastWeather
-                .slice(1)
-                .map((data, index) => <WeatherCardSimplified key={index} data={data} />)}
+              { isLoading ? <SkeletonCard isSimplified={true} number={5} /> :
+                forecastWeather.list
+                  .slice(1)
+                  .map((data, index) => <WeatherCardSimplified key={index} data={data} />)
+              }
             </div>
           </div>
-        }
+        )}
       </div>
 
       <footer id="footer">

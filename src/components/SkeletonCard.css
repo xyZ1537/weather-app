@@ -1,0 +1,22 @@
+.skeleton-date {
+  width: 100px;
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+.skeleton-weather {
+  width: 100px;
+  height: 60px;
+}
+
+.skeleton-info {
+  width: 150px;
+  height: 30px;
+  margin-top: 20px;
+}
+
+.skeleton-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
