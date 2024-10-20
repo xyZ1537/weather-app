@@ -10,7 +10,7 @@ const WeatherCardSimplified = ({ data }) => {
   const iconSrc = `${data.weather[0].icon}@2x.png`;
 
   return (
-    <div className="card-container forecast-card">
+    <div className="card-container forecast-card" data-testid="weather-card-simplified">
       <p className="date">{date}</p>
 
       <div className="forecast-info">
