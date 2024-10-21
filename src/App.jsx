@@ -72,7 +72,7 @@ function App() {
       </div>
 
       <footer id="footer">
-        <p>GitHub: <a href="https://github.com/">xyZ</a></p>
+        <p>GitHub: <a href="https://github.com/xyZ1537">xyZ1537</a></p>
         <p>Icons by <a href="https://www.flaticon.com/">Flaticon</a></p>
       </footer>
     </div>

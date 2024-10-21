@@ -307,19 +307,20 @@ describe('Weather application main page integration tests', () => {
       
     await waitFor(() => {
       expect(screen.getByText("20th Sun")).toBeInTheDocument();
-      expect(screen.getByAltText("scattered clouds")).toBeInTheDocument();
-      expect(screen.getByTestId("current-temp")).toHaveTextContent("15°C");
-      expect(screen.getByTestId("today-temp")).toHaveTextContent("H: 17°C L: 12°C");
-      expect(screen.getByTestId("current-wind")).toHaveTextContent("5.66 m/s");
-      expect(screen.getByTestId("current-humidity")).toHaveTextContent("84 %");
-
-      const forecastCards = screen.getAllByTestId("weather-card-simplified");
-      expect(forecastCards.length).toBe(5);
-      expect(screen.getByText("23rd Wed")).toBeInTheDocument();
-      expect(screen.getByAltText("sky is clear")).toBeInTheDocument();
-
-      expect(forecastCards[1]).toHaveTextContent("H: 15°C L: 9°C");
-      expect(forecastCards[4]).toHaveTextContent("H: 14°C L: 11°C");
     });
+      
+    expect(screen.getByAltText("scattered clouds")).toBeInTheDocument();
+    expect(screen.getByTestId("current-temp")).toHaveTextContent("15°C");
+    expect(screen.getByTestId("today-temp")).toHaveTextContent("H: 17°C L: 12°C");
+    expect(screen.getByTestId("current-wind")).toHaveTextContent("5.66 m/s");
+    expect(screen.getByTestId("current-humidity")).toHaveTextContent("84 %");
+
+    const forecastCards = screen.getAllByTestId("weather-card-simplified");
+    expect(forecastCards.length).toBe(5);
+    expect(screen.getByText("23rd Wed")).toBeInTheDocument();
+    expect(screen.getByAltText("sky is clear")).toBeInTheDocument();
+
+    expect(forecastCards[1]).toHaveTextContent("H: 15°C L: 9°C");
+    expect(forecastCards[4]).toHaveTextContent("H: 14°C L: 11°C");
   })
 })
